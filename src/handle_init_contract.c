@@ -38,21 +38,9 @@ void handle_init_contract(ethPluginInitContract_t *msg) {
     }
 
     // Set `next_param` to be the first field we expect to parse.
-    // EDIT THIS: Adapt the `cases`, and set the `next_param` to be the first parameter you expect
-    // to parse.
-    switch (context->selectorIndex) {
-        case SWAP_EXACT_ETH_FOR_TOKENS:
-            context->next_param = MIN_AMOUNT_RECEIVED;
-            break;
-        case BOILERPLATE_DUMMY_2:
-            context->next_param = TOKEN_RECEIVED;
-            break;
-        // Keep this
-        default:
-            PRINTF("Missing selectorIndex: %d\n", context->selectorIndex);
-            msg->result = ETH_PLUGIN_RESULT_ERROR;
-            return;
-    }
+    // Since APPROVE_TX is the only selector, we can set next_param directly.
+    // find_selector already returned an error if the selector was not found (i.e., not APPROVE_TX).
+    context->next_param = ACTION_CONTRACT;
 
     // Return valid status.
     msg->result = ETH_PLUGIN_RESULT_OK;

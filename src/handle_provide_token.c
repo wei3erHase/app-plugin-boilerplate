@@ -4,25 +4,12 @@
 // `msg->token1` and `msg->token2`. If those pointers are `NULL`, this means the ethereum app didn't
 // find any info regarding the requested tokens!
 void handle_provide_token(ethPluginProvideInfo_t *msg) {
-    context_t *context = (context_t *) msg->pluginContext;
+    // This plugin does not require token information for the approveTx method.
+    // The fields for decimals, ticker, and token_found have been removed from context_s.
+    // Thus, this function is now a no-op.
 
-    if (msg->item1) {
-        // The Ethereum App found the information for the requested token!
-        // Store its decimals.
-        context->decimals = msg->item1->token.decimals;
-        // Store its ticker.
-        strlcpy(context->ticker, (char *) msg->item1->token.ticker, sizeof(context->ticker));
+    // context_t *context = (context_t *) msg->pluginContext; // context is not used.
 
-        // Keep track that we found the token.
-        context->token_found = true;
-    } else {
-        // The Ethereum App did not manage to find the info for the requested token.
-        context->token_found = false;
-
-        // If we wanted to add a screen, say a warning screen for example, we could instruct the
-        // ethereum app to add an additional screen by setting `msg->additionalScreens` here, just
-        // like so:
-        // msg->additionalScreens = 1;
-    }
+    // msg->additionalScreens can be set here if needed, but not for approveTx.
     msg->result = ETH_PLUGIN_RESULT_OK;
 }
