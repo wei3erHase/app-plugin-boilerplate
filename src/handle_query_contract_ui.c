@@ -15,12 +15,7 @@ static bool set_action_contract_ui(ethQueryContractUI_t *msg, context_t *context
 
 static bool set_nonce_ui(ethQueryContractUI_t *msg, context_t *context) {
     strlcpy(msg->title, "Nonce", msg->titleLength);
-    return amountToString(context->nonce,
-                          sizeof(context->nonce),
-                          0,
-                          "",
-                          msg->msg,
-                          msg->msgLength);
+    return amountToString(context->nonce, sizeof(context->nonce), 0, "", msg->msg, msg->msgLength);
 }
 
 void handle_query_contract_ui(ethQueryContractUI_t *msg) {
@@ -34,8 +29,6 @@ void handle_query_contract_ui(ethQueryContractUI_t *msg) {
     memset(msg->title, 0, msg->titleLength);
     memset(msg->msg, 0, msg->msgLength);
 
-    // EDIT THIS: Adapt the cases for the screens you'd like to display.
-    // Since APPROVE_TX is the only selector, we don't need to switch on context->selectorIndex anymore.
     switch (msg->screenIndex) {
         case 0:
             ret = set_action_contract_ui(msg, context);
