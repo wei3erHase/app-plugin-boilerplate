@@ -25,7 +25,7 @@
 // A Xmacro below will create for you:
 //     - an enum named selector_t with every NAME
 //     - a map named SELECTORS associating each NAME with it's value
-#define SELECTORS_LIST(X) X(APPROVE_TX, 0x09465019)
+#define SELECTORS_LIST(X) X(APPROVE_TX, 0x6bf47240)
 
 // Xmacro helpers to define the enum and map
 // Do not modify !
